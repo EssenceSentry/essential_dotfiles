@@ -49,8 +49,17 @@ emojis = {
      "user_at_host": "🏋"
 }
 
+# Do not show emojis in PyCharm
+def pycharm():
+    try:
+        return ${"TERMINAL_EMULATOR"} == "JetBrains-JediTerm"
+    except:
+        return False
+
+pycharm = pycharm()
+
 enabled = [(k, emojis[k]) for k, v in components.items() if v]
 
 $PROMPT_FIELD_COLORS = {e: color_comb[i] for i, e in enumerate(components)}
 $POWERLINE_MODE = "space"
-$PROMPT = "".join(["{%s: %s {} }" %(c, e) for c, e in enabled])
+$PROMPT = "".join(["{%s: %s {} }" %(c, e if not pycharm else "") for c, e in enabled])
