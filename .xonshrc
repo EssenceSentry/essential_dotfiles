@@ -1,0 +1,56 @@
+$AUTO_SUGGEST_IN_COMPLETIONS = '1'
+
+source-bash "echo loading xonsh foreign shell"
+
+xontrib load argcomplete autovox autoxsh cmd_done commands coreutils distributed docker_tabcomplete fzf-widgets gitinfo hist_navigator histcpy mpl onepath output_search pdb pipeliner prompt_ret_code pyenv readable-traceback sh ssh_agent vox whole_word_jumping zoxide powerline3
+
+
+colors = [
+    "#8cb369",
+    "#987284",
+    "#5b8e7d",
+    "#bc4b51",
+    "#cc2936",
+    "#717ec3",
+    "#496ddb",
+    "#f19953",
+    "#33202a",
+    "#3c3744",
+    "#f4a259",
+]
+color_comb = [("INTENSE_WHITE", color) for color in colors]
+
+
+components = {
+     "background_jobs": False,
+     "cwd": True,
+     "full_env_name": True,
+     "gitstatus": True,
+     "gitstatus_pl": False,
+     "localtime": True,
+     "long_cmd_duration": True,
+     "os_icon": False,
+     "py_pkg_info": False,
+     "user": True,
+     "user_at_host": False
+ }
+
+emojis = {
+     "background_jobs": "🪓",
+     "cwd": "🌏",
+     "full_env_name": "🛰",
+     "gitstatus": "🦑",
+     "gitstatus_pl": "🦀",
+     "localtime": "⏰",
+     "long_cmd_duration": "🧊",
+     "os_icon": "💻",
+     "py_pkg_info": "💾",
+     "user": '🦸',
+     "user_at_host": "🏋"
+}
+
+enabled = [(k, emojis[k]) for k, v in components.items() if v]
+
+$PROMPT_FIELD_COLORS = {e: color_comb[i] for i, e in enumerate(components)}
+$POWERLINE_MODE = "space"
+$PROMPT = "".join(["{%s: %s {} }" %(c, e) for c, e in enabled])
